@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --color-mtn-yellow: #ffcc00;
+  --color-mtn-blue: #00678f;
+  --color-mtn-black: #000000;
+  --color-mtn-grey: #121212;
+  --color-mtn-silver: #f8f9fa;
+
+  /* Global Size Overrides */
+  --text-btn: 22px;
+  --text-title: 36px;
+  --text-hero: 48px;
+
+  /* Animations */
+  @keyframes logo-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.9; }
+  }
+  @keyframes ai-flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 0.99; filter: drop-shadow(0 0 1px rgba(255, 204, 0, 0.1)); }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; filter: drop-shadow(0 0 10px rgba(255, 204, 0, 0.5)); }
+  }
+  @keyframes slide-in-rtl {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  --animate-logo-pulse: logo-pulse 3s ease-in-out infinite;
+  --animate-ai-flicker: ai-flicker 2s linear infinite;
+  --animate-slide-rtl: slide-in-rtl 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@layer base {
+  body {
+    @apply bg-mtn-silver text-mtn-blue transition-colors duration-300;
+    font-size: 18px;
+  }
+  
+  h1 { @apply text-[36px] font-extrabold text-mtn-blue; }
+  h2 { @apply text-[28px] font-bold text-mtn-blue; }
+  
+  .dark {
+    color-scheme: dark;
+  }
+  .dark body {
+    @apply bg-mtn-black text-white;
+  }
+  
+  /* Large Buttons */
+  button {
+    @apply cursor-pointer transition-all duration-200 active:scale-95;
+  }
+  
+  .btn-large {
+    @apply text-[22px] py-4 px-8 rounded-2xl font-bold flex items-center justify-center gap-3;
+  }
+}
+
+@layer components {
+  .mtn-card {
+    @apply bg-white dark:bg-mtn-grey rounded-[32px] shadow-2xl border-none p-8 transition-all;
+  }
+  
+  .result-page {
+    @apply animate-slide-rtl;
+  }
+  
+  .loading-flicker {
+    @apply animate-ai-flicker;
+  }
+}
