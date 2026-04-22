@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { GoogleGenAI, Type, Modality } from "@google/genai";
 import { jsPDF } from "jspdf";
 import JSZip from "jszip";
+import logo from '/media/logo.svg';
 import { 
   Rocket, 
   Target, 
@@ -754,19 +755,19 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-mtn-black' : 'bg-mtn-silver'} text-mtn-blue dark:text-white font-sans selection:bg-mtn-yellow/20`} dir="rtl">
+    <div className={`min-h-screen ${darkMode ? 'dark bg-mtn-black' : 'bg-mtn-silver'} text-mtn-blue dark:text-mtn-blue-lighter font-sans selection:bg-mtn-yellow/20`} dir="rtl">
       {/* Header */}
-      <header className="bg-white dark:bg-mtn-grey border-b-4 border-mtn-yellow sticky top-0 z-50 shadow-2xl">
+      <header className="bg-mtn-silver dark:bg-mtn-grey border-b-4 border-mtn-yellow sticky top-0 z-50 shadow-2xl">
         <div className="max-w-6xl mx-auto px-6 h-28 flex items-center justify-between">
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-5"
           >
-            <div className="w-16 h-16 rounded-2xl bg-mtn-yellow flex items-center justify-center shadow-2xl border-4 border-mtn-blue animate-logo-pulse shrink-0">
-              <span className="text-mtn-blue font-black text-[22px] tracking-tighter">MTN</span>
+            <div className="w-16 h-16 rounded-2xl bg-mtn-yellow flex items-center justify-center shadow-2xl border-4 border-mtn-blue animate-logo-pulse shrink-0 overflow-hidden">
+              <img src={logo} alt="MTN Logo" className="w-full h-full object-contain p-1" />
             </div>
-            <h1 className="text-[36px] font-black tracking-tight text-mtn-blue dark:text-mtn-yellow">Hi MTN AI</h1>
+            <h1 className="text-[36px] font-black tracking-tight text-mtn-blue dark:text-mtn-blue-lighter">Hi MTN AI</h1>
           </motion.div>
           
           <div className="flex items-center gap-8">
@@ -778,7 +779,7 @@ export default function App() {
                 playSound(CLICK_SOUND);
                 setDarkMode(!darkMode);
               }}
-              className="p-4 rounded-2xl bg-mtn-silver dark:bg-mtn-black hover:scale-110 transition-transform shadow-lg"
+              className="p-4 rounded-2xl bg-mtn-silver dark:bg-mtn-grey hover:scale-110 transition-all shadow-lg btn-interactive border-2 border-mtn-blue/20 dark:border-mtn-blue-light/40"
             >
               {darkMode ? <Sun className="w-8 h-8 text-mtn-yellow" /> : <Moon className="w-8 h-8 text-mtn-blue" />}
             </button>
@@ -792,7 +793,7 @@ export default function App() {
           <motion.h2 
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-[48px] sm:text-[64px] font-black text-mtn-blue dark:text-white mb-6 leading-tight"
+            className="text-[48px] sm:text-[64px] font-black text-mtn-blue dark:text-mtn-blue-lighter mb-6 leading-tight"
           >
             اصنع نجاحك مع <span className="bg-mtn-yellow text-mtn-black px-4 rounded-xl">Hi MTN AI</span>
           </motion.h2>
@@ -800,7 +801,7 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-[24px] text-mtn-blue/70 dark:text-mtn-silver max-w-3xl mx-auto font-medium"
+            className="text-[24px] text-mtn-blue/70 dark:text-mtn-blue-lighter max-w-3xl mx-auto font-medium"
           >
             حوّل أفكارك إلى خطط تسويقية ذكية وصور احترافية بضغطة زر واحدة.
           </motion.p>
@@ -814,7 +815,7 @@ export default function App() {
         >
           {/* Request Type Selection */}
           <div className="mb-14">
-            <label className="text-[22px] font-black text-mtn-blue/70 dark:text-mtn-silver mb-8 block text-center uppercase tracking-widest">اختر مهمة الذكاء الاصطناعي</label>
+            <label className="text-[22px] font-black text-mtn-blue/70 dark:text-mtn-blue-lighter mb-8 block text-center uppercase tracking-widest">اختر مهمة الذكاء الاصطناعي</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
               {[
                 { id: 'all', label: 'استراتيجية كاملة', icon: <Zap className="w-6 h-6" /> },
@@ -829,10 +830,10 @@ export default function App() {
                     playSound(CLICK_SOUND);
                     setRequestType(type.id as any);
                   }}
-                  className={`flex flex-col items-center justify-center gap-4 p-8 rounded-[24px] font-black transition-all border-4 ${
+                  className={`flex flex-col items-center justify-center gap-4 p-8 rounded-[24px] font-black transition-all border-4 btn-interactive ${
                     requestType === type.id 
                     ? 'border-mtn-yellow bg-mtn-yellow text-mtn-black shadow-2xl scale-105 z-10' 
-                    : 'border-mtn-silver dark:border-mtn-black bg-mtn-silver dark:bg-mtn-black text-mtn-blue/50 dark:text-mtn-silver hover:border-mtn-yellow/50'
+                    : 'border-mtn-silver dark:border-mtn-grey bg-mtn-silver dark:bg-mtn-grey text-mtn-blue/50 dark:text-mtn-blue-lighter/60 hover:border-mtn-yellow/50 dark:hover:border-mtn-yellow/40'
                   }`}
                 >
                   {type.icon}
@@ -847,11 +848,11 @@ export default function App() {
               <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-purple-50/50 p-6 rounded-3xl border border-purple-100 mb-4 space-y-4"
+                className="bg-mtn-yellow/10 dark:bg-mtn-blue-light/10 p-6 rounded-3xl border border-mtn-yellow/30 dark:border-mtn-blue-light/30 mb-4 space-y-4"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <Magnet className="w-5 h-5 text-purple-600" />
-                  <h3 className="font-bold text-slate-900">الخطوة 1: استخراج النمط من صورة تعجبك</h3>
+                  <Magnet className="w-5 h-5 text-mtn-blue dark:text-mtn-blue-lighter" />
+                  <h3 className="font-bold text-mtn-blue dark:text-mtn-blue-lighter">الخطوة 1: استخراج النمط من صورة تعجبك</h3>
                 </div>
                 
                 <div className="flex flex-col md:flex-row gap-6 items-start">
@@ -870,10 +871,10 @@ export default function App() {
                         </button>
                       </div>
                     ) : (
-                      <label className="flex flex-col items-center justify-center w-full aspect-square bg-white border-2 border-dashed border-purple-200 rounded-2xl cursor-pointer hover:bg-purple-50 hover:border-purple-300 transition-all group">
+                      <label className="flex flex-col items-center justify-center w-full aspect-square bg-mtn-silver dark:bg-mtn-black border-2 border-dashed border-mtn-blue/20 dark:border-mtn-blue-light/20 rounded-2xl cursor-pointer hover:bg-mtn-yellow/5 dark:hover:bg-mtn-blue-light/5 hover:border-mtn-yellow transition-all group">
                         <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'reference')} className="hidden" />
-                        <Upload className="w-8 h-8 text-purple-300 group-hover:text-purple-500 mb-2" />
-                        <span className="text-xs font-bold text-purple-400">ارفع الصورة</span>
+                        <Upload className="w-8 h-8 text-mtn-blue/30 dark:text-mtn-blue-light/30 group-hover:text-mtn-yellow mb-2" />
+                        <span className="text-xs font-bold text-mtn-yellow">ارفع الصورة</span>
                       </label>
                     )}
                   </div>
@@ -882,7 +883,7 @@ export default function App() {
                     <button 
                       onClick={analyzeReferenceImage}
                       disabled={analyzing || !referenceImage}
-                      className="w-full py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-slate-300 text-white font-bold rounded-xl transition-all shadow-lg shadow-purple-100 flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-mtn-blue hover:bg-mtn-blue-light dark:bg-mtn-blue-lighter dark:hover:bg-mtn-blue-light disabled:bg-mtn-silver dark:disabled:bg-mtn-grey text-white dark:text-mtn-black font-bold rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
                     >
                       {analyzing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Magnet className="w-4 h-4" />}
                       تحليل واستخراج البرومبت
@@ -890,13 +891,13 @@ export default function App() {
 
                     {extractedPrompt && (
                       <div className="grid grid-cols-1 gap-3">
-                        <div className="bg-white/80 p-3 rounded-xl border border-purple-100">
-                          <span className="text-[10px] font-bold text-purple-400 uppercase mb-1 block">البرومبت المستخرج (عربي)</span>
-                          <p className="text-xs text-slate-700 line-clamp-2">{extractedPrompt.ar}</p>
+                        <div className="bg-mtn-silver/50 dark:bg-mtn-black/50 p-3 rounded-xl border border-mtn-blue/20 dark:border-mtn-blue-light/20">
+                          <span className="text-[10px] font-bold text-mtn-blue dark:text-mtn-blue-lighter uppercase mb-1 block">البرومبت المستخرج (عربي)</span>
+                          <p className="text-xs text-mtn-blue/70 dark:text-mtn-blue-lighter/70 line-clamp-2">{extractedPrompt.ar}</p>
                         </div>
-                        <div className="bg-white/80 p-3 rounded-xl border border-purple-100">
-                          <span className="text-[10px] font-bold text-purple-400 uppercase mb-1 block">Extracted Prompt (EN)</span>
-                          <p className="text-xs text-slate-700 line-clamp-2 italic">{extractedPrompt.en}</p>
+                        <div className="bg-mtn-silver/50 dark:bg-mtn-black/50 p-3 rounded-xl border border-mtn-blue/20 dark:border-mtn-blue-light/20">
+                          <span className="text-[10px] font-bold text-mtn-blue dark:text-mtn-blue-lighter uppercase mb-1 block">Extracted Prompt (EN)</span>
+                          <p className="text-xs text-mtn-blue/70 dark:text-mtn-blue-lighter/70 line-clamp-2 italic">{extractedPrompt.en}</p>
                         </div>
                       </div>
                     )}
@@ -911,7 +912,7 @@ export default function App() {
                   playSound(CLICK_SOUND);
                   setInputMode('text');
                 }}
-                className={`flex-1 min-w-[300px] flex items-center justify-center gap-4 py-8 rounded-[32px] font-black transition-all ${inputMode === 'text' ? 'bg-mtn-blue text-white shadow-3xl scale-105' : 'bg-mtn-silver dark:bg-mtn-black text-mtn-blue/40 dark:text-mtn-silver hover:bg-white/50'}`}
+                className={`flex-1 min-w-[300px] flex items-center justify-center gap-4 py-8 rounded-[32px] font-black transition-all btn-interactive ${inputMode === 'text' ? 'bg-mtn-blue dark:bg-mtn-blue-lighter text-white dark:text-mtn-black shadow-3xl scale-105' : 'bg-mtn-silver dark:bg-mtn-grey text-mtn-blue/40 dark:text-mtn-blue-lighter/60 hover:bg-mtn-silver/70 dark:hover:bg-mtn-black/60'}`}
               >
                 <Sparkles className="w-10 h-10" />
                 <span className="text-[28px]">اكتب فكرة مشروعك</span>
@@ -921,7 +922,7 @@ export default function App() {
                   playSound(CLICK_SOUND);
                   setInputMode('image');
                 }}
-                className={`flex-1 min-w-[300px] flex items-center justify-center gap-4 py-8 rounded-[32px] font-black transition-all ${inputMode === 'image' ? 'bg-mtn-yellow text-mtn-black shadow-3xl scale-105' : 'bg-mtn-silver dark:bg-mtn-black text-mtn-blue/40 dark:text-mtn-silver hover:bg-white/50'}`}
+                className={`flex-1 min-w-[300px] flex items-center justify-center gap-4 py-8 rounded-[32px] font-black transition-all btn-interactive ${inputMode === 'image' ? 'bg-mtn-yellow text-mtn-black shadow-3xl scale-105' : 'bg-mtn-silver dark:bg-mtn-grey text-mtn-blue/40 dark:text-mtn-blue-lighter/60 hover:bg-mtn-silver/70 dark:hover:bg-mtn-black/60'}`}
               >
                 <Camera className="w-10 h-10" />
                 <span className="text-[28px]">تحليل صورة المنتج</span>
@@ -931,12 +932,12 @@ export default function App() {
             {inputMode === 'text' ? (
               <div className="space-y-12">
                 <div className="flex flex-col gap-6">
-                  <label className="text-[26px] font-black text-mtn-blue dark:text-mtn-yellow px-4">ما هو اسم المنتج أو الفكرة؟</label>
+                  <label className="text-[26px] font-black text-mtn-blue dark:text-mtn-blue-lighter px-4">ما هو اسم المنتج أو الفكرة؟</label>
                   <div className="relative group">
                     <input 
                       type="text" 
                       placeholder={requestType === 'prompt_extract' ? "مثال: عطر لاكوست رجالي" : "ماذا نسوق لك اليوم؟"}
-                      className="w-full px-12 py-10 bg-mtn-silver dark:bg-mtn-black border-4 border-transparent focus:border-mtn-yellow rounded-[40px] focus:outline-none transition-all text-[32px] font-black text-mtn-blue dark:text-white placeholder:text-mtn-blue/20"
+                      className="w-full px-12 py-10 bg-mtn-silver dark:bg-mtn-black border-4 border-transparent focus:border-mtn-yellow rounded-[40px] focus:outline-none transition-all text-[32px] font-black text-mtn-blue dark:text-mtn-blue-lighter placeholder:text-mtn-blue/20 dark:placeholder:text-mtn-blue-lighter/20"
                       value={productName}
                       onChange={(e) => setProductName(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && generateStrategy()}
@@ -949,7 +950,7 @@ export default function App() {
                 
                 {(requestType === 'image' || requestType === 'prompt_extract' || requestType === 'all') && (
                   <div className="space-y-6">
-                    <label className="text-[26px] font-black text-mtn-blue dark:text-mtn-yellow px-4 flex items-center gap-4">
+                    <label className="text-[26px] font-black text-mtn-blue dark:text-mtn-blue-lighter px-4 flex items-center gap-4">
                       <ImageIcon className="w-8 h-8" />
                       أبعاد التصميم
                     </label>
@@ -981,7 +982,7 @@ export default function App() {
                 <button 
                   onClick={generateStrategy}
                   disabled={loading || !productName.trim()}
-                  className={`w-full py-10 text-[40px] font-black rounded-[40px] transition-all shadow-3xl flex items-center justify-center gap-6 active:scale-95 ${loading ? 'bg-mtn-silver dark:bg-mtn-black text-mtn-blue/10' : 'bg-mtn-yellow text-mtn-black hover:bg-yellow-400'}`}
+                  className={`w-full py-10 text-[40px] font-black rounded-[40px] transition-all shadow-3xl flex items-center justify-center gap-6 active:scale-95 btn-interactive ${loading ? 'bg-mtn-silver dark:bg-mtn-grey text-mtn-blue/20 dark:text-mtn-blue-light/30' : 'bg-mtn-yellow text-mtn-black hover:bg-yellow-400 hover:shadow-2xl'}`}
                 >
                   {loading ? (
                     <>
@@ -1026,7 +1027,7 @@ export default function App() {
                 <button 
                   onClick={generateStrategy}
                   disabled={loading || !uploadedImage}
-                  className={`w-full max-w-2xl py-10 text-[40px] font-black rounded-[40px] transition-all shadow-3xl flex items-center justify-center gap-6 active:scale-95 ${loading ? 'bg-mtn-silver dark:bg-mtn-black text-mtn-blue/10' : 'bg-mtn-yellow text-mtn-black hover:bg-yellow-400'}`}
+                  className={`w-full max-w-2xl py-10 text-[40px] font-black rounded-[40px] transition-all shadow-3xl flex items-center justify-center gap-6 active:scale-95 btn-interactive ${loading ? 'bg-mtn-silver dark:bg-mtn-grey text-mtn-blue/20 dark:text-mtn-blue-light/30' : 'bg-mtn-yellow text-mtn-black hover:bg-yellow-400 hover:shadow-2xl'}`}
                 >
                   {loading ? (
                     <>
@@ -1069,7 +1070,7 @@ export default function App() {
             >
               {/* Sidebar: Platform Selection */}
               <div className="lg:col-span-3 space-y-4">
-                <h3 className="text-lg font-bold text-slate-900 mb-4 px-2">اختر المنصة</h3>
+                <h3 className="text-lg font-bold text-mtn-blue dark:text-mtn-blue-lighter mb-4 px-2">اختر المنصة</h3>
                 <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
                   {platforms.map((platform) => (
                     <button
@@ -1078,7 +1079,7 @@ export default function App() {
                       className={`flex items-center gap-3 p-4 rounded-2xl transition-all border-2 ${
                         selectedPlatform === platform.id 
                         ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-md' 
-                        : 'border-transparent bg-white text-slate-600 hover:bg-slate-50'
+                        : 'border-transparent bg-mtn-silver dark:bg-mtn-grey text-mtn-blue/50 dark:text-mtn-blue-lighter/50 hover:bg-mtn-yellow/5'
                       }`}
                     >
                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-white ${platform.color}`}>
@@ -1156,10 +1157,10 @@ export default function App() {
                         playSound(CLICK_SOUND);
                         setActiveTab(tab.id as any);
                       }}
-                      className={`flex-1 flex items-center justify-center gap-4 py-6 px-8 rounded-[24px] font-black transition-all ${
+                      className={`flex-1 flex items-center justify-center gap-4 py-6 px-8 rounded-[24px] font-black transition-all btn-interactive ${
                         activeTab === tab.id 
-                        ? 'bg-mtn-blue text-white shadow-2xl scale-105' 
-                        : 'text-mtn-blue/40 dark:text-mtn-silver hover:bg-mtn-silver/50'
+                        ? 'bg-mtn-blue dark:bg-mtn-blue-lighter text-white dark:text-mtn-black shadow-2xl scale-105' 
+                        : 'text-mtn-blue/40 dark:text-mtn-blue-lighter/60 hover:bg-mtn-silver/50 dark:hover:bg-mtn-black/40'
                       }`}
                     >
                       {tab.icon}
@@ -1312,7 +1313,7 @@ export default function App() {
                                 نصوص الكابشن المقترحة لجميع المنصات
                               </h4>
                               
-                              <div className="flex gap-2 bg-slate-100 p-1 rounded-xl">
+                              <div className="flex gap-2 bg-mtn-silver dark:bg-mtn-black p-1 rounded-xl border border-mtn-blue/20 dark:border-mtn-blue-light/20">
                                 {[
                                   { id: 'sales', label: 'بيعي', icon: <Target className="w-4 h-4" /> },
                                   { id: 'engagement', label: 'تفاعلي', icon: <MessageSquare className="w-4 h-4" /> },
@@ -1321,7 +1322,7 @@ export default function App() {
                                   <button
                                     key={model.id}
                                     onClick={() => setActiveModel(model.id as any)}
-                                    className={`flex items-center justify-center gap-2 py-1.5 px-4 rounded-lg font-bold text-xs transition-all ${activeModel === model.id ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                                    className={`flex items-center justify-center gap-2 py-1.5 px-4 rounded-lg font-bold text-xs transition-all btn-interactive ${activeModel === model.id ? 'bg-mtn-blue dark:bg-mtn-blue-lighter text-white dark:text-mtn-black shadow-lg' : 'text-mtn-blue/50 dark:text-mtn-blue-lighter/50 hover:text-mtn-blue dark:hover:text-mtn-blue-lighter'}`}
                                   >
                                     {model.icon}
                                     {model.label}
@@ -1343,21 +1344,21 @@ export default function App() {
                                     <div className="flex gap-2">
                                       <button 
                                         onClick={() => copyToClipboard(content)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                         title="نسخ"
                                       >
                                         <Copy className="w-4 h-4" />
                                       </button>
                                       <button 
                                         onClick={() => exportToPDF('كابشن', content, platform.label)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                         title="تحميل PDF"
                                       >
                                         <FileText className="w-4 h-4" />
                                       </button>
                                       <button 
                                         onClick={() => regeneratePart('caption', platform.id)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                         title="إعادة توليد"
                                       >
                                         <RotateCcw className="w-4 h-4" />
@@ -1384,7 +1385,7 @@ export default function App() {
                                 سكريبتات فيديو لجميع المنصات
                               </h4>
 
-                              <div className="flex gap-2 bg-slate-100 p-1 rounded-xl">
+                              <div className="flex gap-2 bg-mtn-silver dark:bg-mtn-black p-1 rounded-xl border border-mtn-blue/20 dark:border-mtn-blue-light/20">
                                 {[
                                   { id: 'sales', label: 'بيعي', icon: <Target className="w-4 h-4" /> },
                                   { id: 'engagement', label: 'تفاعلي', icon: <MessageSquare className="w-4 h-4" /> },
@@ -1393,7 +1394,7 @@ export default function App() {
                                   <button
                                     key={model.id}
                                     onClick={() => setActiveModel(model.id as any)}
-                                    className={`flex items-center justify-center gap-2 py-1.5 px-4 rounded-lg font-bold text-xs transition-all ${activeModel === model.id ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                                    className={`flex items-center justify-center gap-2 py-1.5 px-4 rounded-lg font-bold text-xs transition-all btn-interactive ${activeModel === model.id ? 'bg-mtn-blue dark:bg-mtn-blue-lighter text-white dark:text-mtn-black shadow-lg' : 'text-mtn-blue/50 dark:text-mtn-blue-lighter/50 hover:text-mtn-blue dark:hover:text-mtn-blue-lighter'}`}
                                   >
                                     {model.icon}
                                     {model.label}
@@ -1434,19 +1435,19 @@ export default function App() {
                                     <div className="flex gap-2">
                                       <button 
                                         onClick={() => copyToClipboard(scriptText)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                       >
                                         <Copy className="w-4 h-4" />
                                       </button>
                                       <button 
                                         onClick={() => exportToPDF('سكريبت', scriptText, platform.label)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                       >
                                         <FileText className="w-4 h-4" />
                                       </button>
                                       <button 
                                         onClick={() => regeneratePart('script', platform.id === 'instagram' ? 'reels' : platform.id)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                       >
                                         <RotateCcw className="w-4 h-4" />
                                       </button>
@@ -1500,7 +1501,7 @@ export default function App() {
                                 أفكار للستوري لجميع المنصات
                               </h4>
 
-                              <div className="flex gap-2 bg-slate-100 p-1 rounded-xl">
+                              <div className="flex gap-2 bg-mtn-silver dark:bg-mtn-black p-1 rounded-xl border border-mtn-blue/20 dark:border-mtn-blue-light/20">
                                 {[
                                   { id: 'sales', label: 'بيعي', icon: <Target className="w-4 h-4" /> },
                                   { id: 'engagement', label: 'تفاعلي', icon: <MessageSquare className="w-4 h-4" /> },
@@ -1509,7 +1510,7 @@ export default function App() {
                                   <button
                                     key={model.id}
                                     onClick={() => setActiveModel(model.id as any)}
-                                    className={`flex items-center justify-center gap-2 py-1.5 px-4 rounded-lg font-bold text-xs transition-all ${activeModel === model.id ? 'bg-white text-purple-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                                    className={`flex items-center justify-center gap-2 py-1.5 px-4 rounded-lg font-bold text-xs transition-all btn-interactive ${activeModel === model.id ? 'bg-mtn-blue dark:bg-mtn-blue-lighter text-white dark:text-mtn-black shadow-lg' : 'text-mtn-blue/50 dark:text-mtn-blue-lighter/50 hover:text-mtn-blue dark:hover:text-mtn-blue-lighter'}`}
                                   >
                                     {model.icon}
                                     {model.label}
@@ -1534,19 +1535,19 @@ export default function App() {
                                     <div className="flex gap-2">
                                       <button 
                                         onClick={() => copyToClipboard(storyText)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                       >
                                         <Copy className="w-4 h-4" />
                                       </button>
                                       <button 
                                         onClick={() => exportToPDF('ستوري', storyText, platform.label)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                       >
                                         <FileText className="w-4 h-4" />
                                       </button>
                                       <button 
                                         onClick={() => exportPackage(storyText, generatedImage, platform.label)}
-                                        className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                                        className="p-1.5 hover:bg-mtn-silver/30 dark:hover:bg-mtn-blue-light/20 rounded-lg transition-colors"
                                       >
                                         <Share2 className="w-4 h-4" />
                                       </button>

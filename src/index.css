@@ -5,9 +5,11 @@
   --font-sans: "Tajawal", ui-sans-serif, system-ui, sans-serif;
   --color-mtn-yellow: #ffcc00;
   --color-mtn-blue: #00678f;
-  --color-mtn-black: #000000;
-  --color-mtn-grey: #121212;
-  --color-mtn-silver: #f8f9fa;
+  --color-mtn-blue-light: #0088b3;
+  --color-mtn-blue-lighter: #00a8d8;
+  --color-mtn-black: #4d4d4d;
+  --color-mtn-grey: #2a2a2a;
+  --color-mtn-silver: #a5a5aa;
 
   /* Global Size Overrides */
   --text-btn: 22px;
@@ -27,10 +29,21 @@
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
   }
+  @keyframes button-glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(0, 104, 143, 0.3), 0 0 20px rgba(255, 204, 0, 0.1); }
+    50% { box-shadow: 0 0 20px rgba(0, 104, 143, 0.5), 0 0 30px rgba(255, 204, 0, 0.2); }
+  }
+  @keyframes button-hover {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+  }
 
   --animate-logo-pulse: logo-pulse 3s ease-in-out infinite;
   --animate-ai-flicker: ai-flicker 2s linear infinite;
   --animate-slide-rtl: slide-in-rtl 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-button-glow: button-glow 2s ease-in-out infinite;
+  --animate-button-hover: button-hover 0.6s ease-in-out;
 }
 
 @layer base {
@@ -39,17 +52,21 @@
     font-size: 18px;
   }
   
-  h1 { @apply text-[36px] font-extrabold text-mtn-blue; }
-  h2 { @apply text-[28px] font-bold text-mtn-blue; }
+  h1 { @apply text-[36px] font-extrabold text-mtn-blue dark:text-mtn-blue-lighter; }
+  h2 { @apply text-[28px] font-bold text-mtn-blue dark:text-mtn-blue-lighter; }
   
   .dark {
     color-scheme: dark;
   }
   .dark body {
-    @apply bg-mtn-black text-white;
+    @apply bg-mtn-black text-mtn-blue-lighter;
   }
   
-  /* Large Buttons */
+  /* Large Buttons - Interactive only */
+  button.btn-interactive {
+    @apply cursor-pointer transition-all duration-200 active:scale-95 hover:animate-button-hover;
+  }
+  
   button {
     @apply cursor-pointer transition-all duration-200 active:scale-95;
   }
@@ -57,11 +74,16 @@
   .btn-large {
     @apply text-[22px] py-4 px-8 rounded-2xl font-bold flex items-center justify-center gap-3;
   }
+  
+  /* Dark mode text improvements */
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    @apply text-mtn-blue-lighter;
+  }
 }
 
 @layer components {
   .mtn-card {
-    @apply bg-white dark:bg-mtn-grey rounded-[32px] shadow-2xl border-none p-8 transition-all;
+    @apply bg-mtn-silver dark:bg-mtn-grey rounded-[32px] shadow-2xl border-none p-8 transition-all;
   }
   
   .result-page {
