@@ -6,5 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
-./media/Old_App
-./media/files.*
+media/Old_App
+media/files.zip
+
